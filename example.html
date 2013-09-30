@@ -1,0 +1,54 @@
+<html>
+<head>
+  <title></title>
+  <link href='build/build.css' rel='stylesheet'>
+  <style>
+  li.correct {
+    background: green;
+  }
+  li.incorrect {
+    background: red;
+  }
+
+  </style>
+</head>
+<body>
+  <div id='container'></div>
+  <div id='container2'></div>
+<script src='build/build.js'></script>
+<script>
+var MultipleChoice = require('multiple-choice');
+var choice1 = MultipleChoice()
+  .question('How old is Ben?')
+  .answer('28')
+  .option('21')
+  .option('85')
+  .option('All of the above.')
+  .reveal();
+
+choice1.on('correct', function(option){
+  console.log('correct choice');
+});
+
+choice1.on('incorrect', function(option){
+  console.log('incorrect choice');
+});
+
+var container = document.getElementById('container');
+container.appendChild(choice1.el);
+
+var choice2 = MultipleChoice()
+  .question('How old is Kit?')
+  .option('33')
+  .option('21')
+  .answer('28')
+  .option('55')
+  .reveal();
+
+var c2 = document.getElementById('container2');
+c2.appendChild(choice2.el);
+
+</script>
+
+</body>
+</html>

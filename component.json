@@ -1,0 +1,22 @@
+{
+  "name": "multiple-choice",
+  "repo": "bmcmahen/multiple-choice",
+  "description": "create multiple choice questions w/ answers and generate a form",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/domify": "*",
+    "component/classes": "*",
+    "matthewp/text": "*",
+    "component/events": "*",
+    "component/emitter": "*",
+    "yields/prevent": "*"
+  },
+  "templates": ["template.html"],
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
