@@ -4,10 +4,16 @@ var innerText = require('text');
 var events = require('events');
 var Emitter = require('emitter');
 var prevent = require('prevent');
+var randomize = require('shuffle-array');
+var find = require('find');
 
 var template = require('./template.html');
 
-// xxx consider making this html driven, and a plugin for magazine?
+/**
+ * Multiple Choice Constructor
+ * - creates a form, and handles answering.
+ */
+
 function MultipleChoice(){
   if (!(this instanceof MultipleChoice)) {
     return new MultipleChoice();
@@ -35,17 +41,15 @@ MultipleChoice.prototype.unbind = function(){
 
 MultipleChoice.prototype.selectOption = function(e){
   var id = parseInt(e.target.getAttribute('data-id'));
-  var option = this.options[id];
+  var option = this._randomOrder
+    ? find(this.options, { id: id })
+    : this.options[id];
   if (id === this._answer) {
-    if (this._reveal){
-      classes(option.el.parentNode).add('correct');
-    }
+    if (this._reveal) classes(option.li).add('correct');
     this.emit('correct', option);
     this.isCorrect = true;
   } else {
-    if (this._reveal){
-      classes(option.el.parentNode).add('incorrect');
-    }
+    if (this._reveal) classes(option.li).add('incorrect');
     this.emit('incorrect', option);
     this.isCorrect = false;
   }
@@ -74,9 +78,9 @@ MultipleChoice.prototype.option = function(txt){
   innerText($label, txt);
   $li.appendChild($option);
   $li.appendChild($label);
-  this.form.appendChild($li);
   var option = {
     el : $option,
+    li : $li,
     text : txt,
     id: this.id
   };
@@ -88,6 +92,21 @@ MultipleChoice.prototype.option = function(txt){
 MultipleChoice.prototype.answer = function(txt){
   this._answer = this.id;
   this.option(txt);
+  return this;
+};
+
+MultipleChoice.prototype.append = function(){
+  var frag = document.createDocumentFragment();
+  for (var i = 0; i < this.options.length; i++){
+    frag.appendChild(this.options[i].li);
+  }
+  this.form.appendChild(frag);
+  return this;
+};
+
+MultipleChoice.prototype.randomize = function(){
+  this._randomOrder = true;
+  this.options = randomize(this.options);
   return this;
 };
 

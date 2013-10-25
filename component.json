@@ -2,7 +2,7 @@
   "name": "multiple-choice",
   "repo": "bmcmahen/multiple-choice",
   "description": "create multiple choice questions w/ answers and generate a form",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "keywords": [],
   "dependencies": {
     "component/domify": "*",
@@ -10,7 +10,9 @@
     "matthewp/text": "*",
     "component/events": "*",
     "component/emitter": "*",
-    "yields/prevent": "*"
+    "yields/prevent": "*",
+    "pazguille/shuffle-array": "*",
+    "component/find": "*"
   },
   "templates": ["template.html"],
   "development": {},

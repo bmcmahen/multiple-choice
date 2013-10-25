@@ -24,7 +24,9 @@ var choice1 = MultipleChoice()
   .option('21')
   .option('85')
   .option('All of the above.')
-  .reveal();
+  .randomize()
+  .reveal()
+  .append();
 
 choice1.on('correct', function(option){
   console.log('correct choice');
@@ -43,7 +45,8 @@ var choice2 = MultipleChoice()
   .option('21')
   .answer('28')
   .option('55')
-  .reveal();
+  .reveal()
+  .append();
 
 var c2 = document.getElementById('container2');
 c2.appendChild(choice2.el);
